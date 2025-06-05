@@ -1,0 +1,11 @@
+.main-profile {
+    gap: 2rem;
+}
+
+.profile-form {
+    gap: 2rem;
+}
+
+.funfact-input textarea {
+    display: block; 
+}
