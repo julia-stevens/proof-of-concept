@@ -1,22 +1,23 @@
 {% include "partials/head.liquid" %}
 
-<main class="main-game">
-  <section class="introduction">
+<main class="main-game column-align">
+  <section class="introduction column-align">
     <h1>[NAAM SPEL]</h1>
     <p>Koppel de feitjes aan het juiste lid</p>
   </section>
-  <section class="game">
+
+  <section class="members column-align">
     <div class="title">
       <h2>Leden</h2>
     </div>
 
-    <form action="">
-      <ul>
+    <form action="" class="game-form column-align">
+      <ul class="column-align">
         {% for member in members %}
           <li>
-            <article>
+            <article class="member-select">
               <!-- member info -->
-              <div class="member-info">
+              <div class="member-info row-align">
                 <h3>{{ member.name }}</h3>
                 <img 
                 src="/proxy-image?url={{ member.image | url_encode }}" 
@@ -40,7 +41,7 @@
 
       <!-- submit button -->
       <div class="form-submit">
-        <button type="submit">Opslaan</button>
+        <button type="submit" class="primary-button">Opslaan</button>
       </div>
     </form>
 
