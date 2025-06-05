@@ -1,0 +1,110 @@
+* {
+    margin: 0;
+    padding: 0; 
+    box-sizing: border-box; 
+    font-size: 16px; 
+}
+
+body {
+    /* font */
+    /* family */
+    --font: "IBM Plex Sans", sans-serif;
+
+    /* sizes */
+    --font-xs: .5rem;
+    --font-s: 1rem;
+    --font-m: 1.5rem;
+    --font-l: 2rem;
+    --font-xl: 2.5rem;
+
+    /* weight */
+    --font-thin: 100; 
+    --font-extralight: 200; 
+    --font-light: 300; 
+    --font-regular: 400; 
+    --font-medium: 500; 
+    --font-semibold: 600; 
+    --font-bold: 700; 
+
+    /* colors */
+    /* background */
+    --bg-primary: #342AB6; 
+    --bg-secondary: #9B90DD; 
+    --bg-tertiary: #FFFFFF; 
+
+    /* text */
+    --text-primary: #3B4858; 
+    --text-secondary: #FFFFFF; 
+
+    /* highlight */
+    --highlight-primary: #FAC114; 
+    --highlight-secondary: #0987C6; 
+    --highlight-tertiary: #5D9D26;     
+
+    font-family: var(--font);
+    font-size: var(--font-s);
+    color: var(--text-primary);
+}
+
+/* tags */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+h1 {
+    font-size: var(--font-xl);
+}
+
+h2 {
+    font-size: var(--font-l);
+}
+
+h3 {
+    font-size: var(--font-m);
+}
+
+p {
+    max-width: 25rem;
+}
+
+li {
+    list-style-type: none;
+}
+
+/* alignment */
+.column-align {
+    display: flex; 
+    flex-direction: column;
+}
+
+.row-align {
+    display: flex; 
+    align-items: center;
+}
+
+/* buttons */
+button {
+    --button-padding: .5rem 1rem;
+    cursor: pointer;
+    appearance: none;
+    border: none;
+    background-color: transparent;
+    padding: var(--button-padding);
+    color: var(--text-primary);
+}
+
+.primary-button {
+    --button-radius: .5rem; 
+    --button-transition: .3s ease-out; 
+    --button-shadow: drop-shadow(0px 1px 5px var(--text-primary));
+    --button-padding: .5rem 1rem;
+    background-color: var(--highlight-tertiary);
+    border-radius: var(--button-radius);
+    padding: var(--button-padding);
+    transition: var(--button-transition);
+
+    &:hover {
+        filter: var(--button-shadow);
+    }
+}
