@@ -1,0 +1,12 @@
+.main-game-start {
+    gap: 2rem;
+
+    .introduction {
+        gap: 1rem;
+
+        .slogan {
+            font-weight: var(--font-bold);
+        }
+    }
+}
+
