@@ -1,25 +1,27 @@
 <header>
-    <!-- hamburger -->
-    <div class="hamburger">
-         <a href="">
-            <span>Menu</span>
-            {% render "public/assets/menu.liquid" %}
-        </a>   
-    </div>
+    <main class="main-header row-align">
+        <!-- hamburger -->
+        <div class="hamburger">
+            <a href="" class="row-align">
+                <span>Menu</span>
+                {% render "public/assets/menu.liquid" %}
+            </a>   
+        </div>
 
-    <!-- logo -->
-    <div class="logo">
-        {% render "public/assets/hva-logo.liquid" %}
-    </div>
+        <!-- logo -->
+        <div class="logo">
+            {% render "public/assets/hva-logo.liquid" %}
+        </div>
 
-    <!-- profile -->
-    <div class="profile">
-        {% render "public/assets/profile-pic.liquid" %}
-        {% render "public/assets/arrow-down.liquid" %}
-    </div>
+        <!-- profile -->
+        <div class="profile row-align">
+            <img src="/assets/profile-pic.svg" alt="Profielfoto">
+            {% render "public/assets/arrow-down.liquid" %}
+        </div>
+    </main>
 
     <aside>
-        <a href="">
+        <a href="" class="">
             <span>HvA 2025</span>
             {% render "public/assets/icon.liquid" %}
         </a>
@@ -81,28 +83,28 @@
         </a>                                                                             
     </aside>
 
-    <nav>
-        <a href="">
+    <nav class="row-align">
+        <a href="" class="column-align">
             <span>Menu</span>
             {% render "public/assets/icon.liquid" %}
         </a> 
-        <a href="">
+        <a href="" class="column-align">
             <span>Groepsruimte</span>
             {% render "public/assets/icon.liquid" %}
         </a>     
-        <a href="">
+        <a href="" class="column-align">
             <span>Dialogen</span>
             {% render "public/assets/icon.liquid" %}
         </a>     
-        <a href="">
+        <a href="" class="column-align">
             <span>Docs</span>
             {% render "public/assets/icon.liquid" %}
         </a>    
-        <a href="">
+        <a href="" class="column-align">
             <span>Zoeken</span>
             {% render "public/assets/icon.liquid" %}
         </a>     
-        <a href="">
+        <a href="" class="column-align">
             <span>Favorieten</span>
             {% render "public/assets/icon.liquid" %}
         </a>                          
