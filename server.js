@@ -69,6 +69,35 @@ app.get("/game", async function (requestuest, response) {
   }
 });
 
+app.get("/proxy-image", async (request, response) => {
+  const imageUrl = request.query.url;
+  const token = process.env.TOKEN;
+
+  if (!imageUrl || !imageUrl.startsWith("https://ls-test2.worrell.nl/")) {
+    return response.status(403).send("Forbidden or missing image URL");
+  }
+
+  try {
+    const imageResponse = await fetch(imageUrl, {
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    });
+
+    if (!imageResponse.ok) {
+      return response.status(imageResponse.status).send("Image not accessible");
+    }
+
+    response.set("Content-Type", imageResponse.headers.get("Content-Type"));
+
+    imageResponse.body.pipe(response);
+  } catch (err) {
+    console.error("Image proxy error:", err);
+    response.status(500).send("Error proxying image");
+  }
+});
+
+app.set("port", process.env.PORT || 8000);
 
 app.listen(app.get("port"), function () {
   console.log(`Application started on http://localhost:${app.get("port")}`);
