@@ -1,19 +1,42 @@
+// imports
 import express from "express";
 import { Liquid } from "liquidjs";
 import dotenv from "dotenv";
 import fetch from "node-fetch";
 
+// express
 const app = express();
-dotenv.config();
-
 app.use(express.static("public"));
 
+// dotenv
+dotenv.config();
+
+// liquid en views
 const engine = new Liquid();
 app.engine("liquid", engine.express());
 app.set("views", "./views");
 
+// herbruikbare fetch-functie
+async function fetchJSON(url) {
+  const token = process.env.TOKEN;
+
+  const response = await fetch(url, {
+    headers: {
+      "Authorization": `Bearer ${token}`,
+      "Accept": "application/json"
+    }
+  });
+
+  if (!response.ok) {
+    throw new Error(`Fetch error for ${url}: ${response.status}`);
+  }
+
+  return response.json();
+}
+
+// routes
 app.get("/", async function (request, response) {
-      response.render("index.liquid");
+  response.render("index.liquid");
 });
 
 app.get("/game-start", async function (request, response) {
@@ -21,34 +44,18 @@ app.get("/game-start", async function (request, response) {
 });
 
 app.get("/game", async function (request, response) {
-  const token = process.env.TOKEN;
   const baseUrl = process.env.BASE_URL;
   const groupId = process.env.GROUP_ID;
 
   try {
-    // 1. Haal lijst van member IDs
-    const membersResponse = await fetch(`${baseUrl}/model/maxclass_membership/get/class/${groupId}/member`, {
-      headers: {
-        "Authorization": `Bearer ${token}`,
-        "Accept": "application/json"
-      }
-    });
-
-    if (!membersResponse.ok) throw new Error(`Members fetch error: ${membersResponse.status}`);
-    const membersData = await membersResponse.json();
+    // 1. haal lijst van member IDs
+    const membersData = await fetchJSON(`${baseUrl}/model/maxclass_membership/get/class/${groupId}/member`);
     const memberIds = membersData.result;
 
+    // 2. haal details per member
     const memberDetails = await Promise.all(
-      memberIds.map(async (id) => {
-        const response = await fetch(`${baseUrl}/model/rsc_export/get/${id}`, {
-          headers: {
-            "Authorization": `Bearer ${token}`,
-            "Accept": "application/json"
-          }
-        });
-    
-        if (!response.ok) throw new Error(`Detail fetch error for ${id}: ${response.status}`);
-        const data = await response.json();
+      memberIds.map(async function (id) {
+        const data = await fetchJSON(`${baseUrl}/model/rsc_export/get/${id}`);
 
         return {
           id,
@@ -58,9 +65,7 @@ app.get("/game", async function (request, response) {
       })
     );
 
-    console.log(memberDetails)
-
-    // 3. Render template
+    // 3. render template
     response.render("game.liquid", { members: memberDetails });
 
   } catch (error) {
@@ -69,14 +74,18 @@ app.get("/game", async function (request, response) {
   }
 });
 
+// proxy voor de images
 app.get("/proxy-image", async function (request, response) {
+  // URL vanuit browsers
   const imageUrl = request.query.url;
   const token = process.env.TOKEN;
 
+  // check URL 
   if (!imageUrl || !imageUrl.startsWith("https://ls-test2.worrell.nl/")) {
     return response.status(403).send("Forbidden or missing image URL");
   }
 
+  // image ophalen 
   try {
     const imageResponse = await fetch(imageUrl, {
       headers: {
@@ -88,15 +97,17 @@ app.get("/proxy-image", async function (request, response) {
       return response.status(imageResponse.status).send("Image not accessible");
     }
 
+    // image doorsturen naar brosers
     response.set("Content-Type", imageResponse.headers.get("Content-Type"));
-
     imageResponse.body.pipe(response);
+
   } catch (err) {
     console.error("Image proxy error:", err);
     response.status(500).send("Error proxying image");
   }
 });
 
+// port
 app.set("port", process.env.PORT || 8000);
 
 app.listen(app.get("port"), function () {
