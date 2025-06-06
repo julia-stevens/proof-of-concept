@@ -12,15 +12,15 @@ const engine = new Liquid();
 app.engine("liquid", engine.express());
 app.set("views", "./views");
 
-app.get("/", async function (requestuest, response) {
+app.get("/", async function (request, response) {
       response.render("index.liquid");
 });
 
-app.get("/game-start", async function (requestuest, response) {
+app.get("/game-start", async function (request, response) {
   response.render("game-start.liquid");
 });
 
-app.get("/game", async function (requestuest, response) {
+app.get("/game", async function (request, response) {
   const token = process.env.TOKEN;
   const baseUrl = process.env.BASE_URL;
   const groupId = process.env.GROUP_ID;
@@ -69,7 +69,7 @@ app.get("/game", async function (requestuest, response) {
   }
 });
 
-app.get("/proxy-image", async (request, response) => {
+app.get("/proxy-image", async function (request, response) {
   const imageUrl = request.query.url;
   const token = process.env.TOKEN;
 
