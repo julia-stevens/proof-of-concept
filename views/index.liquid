@@ -1,31 +1,17 @@
 {% assign pageTitle = "Home | LearningStone" %}
 {% include "partials/head.liquid" %}
 
-<main class="main-profile column-align">
+<main class="main-index column-align">
     <section class="introduction-profile">
-        <h1>Over jezelf</h1>
-        <p>Let op: Vul hier je eigen gegevens in en plaats een foto van je zelf (niet van partners o.i.d.).</p>
-        <p>Je profiel wordt gedeeld met coaches en beheerders en ook andere leden als je in een gedeelde ruimte bent (die een "Mensen" tab heeft waar je andere leden kan vinden) tenzij je dit beperkt in je instellingen. Informatie is nooit zichtbaar buiten LearningStone test 2.</p>
+        <h1>LearningStone</h1>
+        <p>Zie onderstaande pagina's. Begin bij <a href="/profile">/profile</a></p>
+
+        <ul>
+            <li><a href="/profile">/profile</a></li>
+            <li><a href="/game-start">/game-start</a></li>
+            <li><a href="/game">/game</a></li>
+        </ul>
     </section>
-    <form action="" method="" class="profile-form column-align">
-        <div class="profile-pic-input">
-            <h2>Profielfoto</h2>
-            <label for="file-upload">
-                <span>Klik om te wijzigen</span>
-                <input type="file" name="profile-pic-input" id="file-upload" accept="image/png, image/jpeg, image/jpg, image/avif, image/webp">
-            </label>
-        </div>
-        <div class="funfact-input">
-            <h2>Leuk feitje</h2>
-            <label>
-                <span>Vul een leuk feitje over jezelf in</span>
-                <textarea name="funfact-input" minlength="20" maxlength="200" required></textarea>
-            </label>
-        </div>
-        <div class="form-submit">
-            <button type="submit" class="primary-button">Opslaan</button>
-        </div>
-    </form>
 </main>
 
 {% include "partials/foot.liquid" %}

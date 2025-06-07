@@ -39,6 +39,10 @@ app.get("/", async function (request, response) {
   response.render("index.liquid");
 });
 
+app.get("/profile", async function (request, response) {
+  response.render("profile.liquid");
+});
+
 app.get("/game-start", async function (request, response) {
   response.render("game-start.liquid");
 });

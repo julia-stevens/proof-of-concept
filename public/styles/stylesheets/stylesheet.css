@@ -5,6 +5,10 @@
     font-size: 16px; 
 }
 
+@view-transition {
+    navigation: auto; 
+}
+
 body {
     /* font */
     /* family */
