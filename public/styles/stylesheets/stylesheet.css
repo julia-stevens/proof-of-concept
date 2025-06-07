@@ -34,6 +34,7 @@ body {
 
     /* text */
     --text-primary: #3B4858; 
+    --text-primary-light: #d0d0d0; 
     --text-secondary: #FFFFFF; 
 
     /* highlight */
@@ -83,6 +84,10 @@ li {
     align-items: center;
 }
 
+main {
+    max-width: max-content;
+}
+
 /* buttons */
 button {
     --button-padding: .5rem 1rem;
@@ -108,3 +113,51 @@ button {
         filter: var(--button-shadow);
     }
 }
+
+/* input elements */
+/* file input */
+.profile-pic-input label {
+    display: block;
+    position: relative; 
+    background-color: var(--text-primary-light);
+    border-bottom: 2px solid var(--text-primary);
+    width: 80vw;
+    max-width: 20rem;
+    height: 80vw;
+    max-height: 20rem;
+    cursor: pointer;
+}
+
+.profile-pic-input span {
+    --padding: .5rem 1rem;
+    padding: var(--padding);
+}
+
+.profile-pic-input input {
+    position: absolute;
+    bottom: 1rem; 
+    left: 1rem;
+
+    &::file-selector-button {
+        display: none; 
+    }
+}
+
+/* textarea */
+textarea {
+    --padding: .5rem 1rem;
+    appearance: none;
+    border: none;
+    background-color: var(--text-primary-light);
+    border-bottom: 2px solid var(--text-primary);
+    padding: var(--padding);
+}
+
+textarea:user-invalid {
+    border-color: red;
+}
+
+textarea:user-valid {
+    border-color: var(--highlight-tertiary);
+}
+

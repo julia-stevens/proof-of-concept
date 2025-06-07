@@ -1,0 +1,54 @@
+footer {
+    --padding: .5rem 1rem;
+    padding: var(--padding);
+    position: fixed; 
+    bottom: 0;
+    background-color: var(--bg-tertiary);
+    border-top: 1px solid var(--text-primary);
+    overflow-x: auto;
+    width: 100%;
+
+    display: grid; 
+    place-items: center;
+}
+
+footer nav {
+    color: var(--text-primary);
+    gap: .5rem;
+    width: 100%;
+    max-width: 540px;
+    justify-content: space-between;
+
+
+    a:hover {
+        color: var(--bg-primary);
+        svg {
+            fill: var(--bg-primary);
+        }
+    }
+}
+
+footer nav a {
+    display: flex; 
+    align-items: center;
+    gap: 0;
+    transition: var(--transition);
+
+    span {
+        order: 1;
+    }
+    svg {
+        --size: 1.5rem;
+        order: 0;
+        fill: var(--text-primary);
+        width: var(--size);
+        height: var(--size);
+        transition: var(--transition);
+    }
+}
+
+@media (min-width: 1200px) {
+    footer {
+        display: none
+    }
+}
