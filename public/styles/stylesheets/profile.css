@@ -1,5 +1,9 @@
 .main-profile {
+    --padding: 1rem 2rem;
+    align-items: start;
     gap: 2rem;
+    padding: var(--padding);
+    transition: .3s ease-out;
 }
 
 .profile-form {
@@ -8,4 +12,10 @@
 
 .funfact-input textarea {
     display: block; 
+}
+
+@media (min-width: 1200px) {
+    .main-profile {
+        translate: 280px 0;
+    }
 }
