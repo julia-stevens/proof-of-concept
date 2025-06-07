@@ -1,5 +1,9 @@
 .main-game-start {
+    --padding: 1rem 2rem;
+    align-items: start;
     gap: 2rem;
+    padding: var(--padding);
+    transition: .3s ease-out;
 
     .introduction {
         gap: 1rem;
@@ -10,3 +14,8 @@
     }
 }
 
+@media (min-width: 1200px) {
+    .main-game-start {
+        translate: 280px 0;
+    }
+}
