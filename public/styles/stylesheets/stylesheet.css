@@ -147,6 +147,24 @@ button {
     }
 }
 
+/* text input */
+input[type="text"] {
+    --padding: .5rem 1rem;
+    appearance: none;
+    border: none;
+    background-color: var(--text-primary-light);
+    border-bottom: 2px solid var(--text-primary);
+    padding: var(--padding);
+}
+
+input[type="text"]:user-invalid {
+    border-color: red;
+}
+
+input[type="text"]:user-valid {
+    border-color: var(--highlight-tertiary);
+}
+
 /* textarea */
 textarea {
     --padding: .5rem 1rem;
@@ -164,4 +182,3 @@ textarea:user-invalid {
 textarea:user-valid {
     border-color: var(--highlight-tertiary);
 }
-

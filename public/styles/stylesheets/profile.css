@@ -10,6 +10,10 @@
     gap: 2rem;
 }
 
+.name-input {
+    display: block; 
+}
+
 .funfact-input textarea {
     display: block; 
 }
