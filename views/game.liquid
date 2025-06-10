@@ -11,7 +11,7 @@
       <h2>Leden</h2>
     </div>
 
-    <form action="" class="game-form column-align">
+    <form action="/game" method="post" class="game-form column-align">
       <ul class="column-align">
         {% for member in members %}
           <li>
@@ -30,11 +30,11 @@
               <!-- select met options -->
               <label>
                 <span>Welk feitje past bij {{ member.name }}?</span>
-                <select name="funfact">
+                <select name="funfact-{{ member.id }}" id="funfact-{{ member.id }}" class="funfact-select">
                   <button>
                     <selectedcontent></selectedcontent>
                   </button>
-                  {% include "partials/funfacts.liquid" %}
+                  {% include "partials/funfacts.liquid" funfacts: funfacts %}
                 </select>
               </label>
             </article>

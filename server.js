@@ -7,6 +7,7 @@ import fetch from "node-fetch";
 // express
 const app = express();
 app.use(express.static("public"));
+app.use(express.urlencoded({ extended: true }));
 
 // dotenv
 dotenv.config();
@@ -61,8 +62,6 @@ app.get("/game", async function (request, response) {
     const factsResponse = await fetch(`${learningstoneEndpoint}${factsEndpoint}`);
     const factsResponseJSON = await factsResponse.json();
 
-    console.log(factsResponseJSON);
-
     // 1. haal lijst van member IDs
     const membersData = await fetchJSON(`${baseUrl}/model/maxclass_membership/get/class/${groupId}/member`);
     const memberIds = membersData.result;
@@ -89,6 +88,56 @@ app.get("/game", async function (request, response) {
   } catch (error) {
     console.error("Fout bij ophalen:", error);
     response.status(500).send("Er ging iets mis bij het ophalen van de leden");
+  }
+});
+
+app.post("/game", async function (request, response) {
+  console.log("Received form submission. request.body:", request.body); 
+  try {
+    const answers = [];
+    const formData = request.body; 
+
+    for (const key in formData) {
+      if (key.startsWith("funfact-")) {
+        const memberId = key.replace("funfact-", ""); 
+        const selectedFact = formData[key]; 
+
+        
+        if (selectedFact && selectedFact !== "start" && selectedFact !== "") {
+          answers.push({
+            user_id: parseInt(memberId), 
+            fact: parseInt(selectedFact), 
+            for: "sprint 12 Julia", 
+          });
+        }
+      }
+    }
+    // Post each answer to your Directus database
+    const directusEndpoint = `${learningstoneEndpoint}${answersEndpoint}`;
+
+    const postPromises = answers.map(async (answer) => {
+      const directusResponse = await fetch(directusEndpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(answer),
+      });
+
+      if (!directusResponse.ok) {
+        const errorData = await directusResponse.json();
+        console.error(`Failed to post answer for user_id ${answer.user_id}:`, errorData);
+        throw new Error(`Failed to post answer for user_id ${answer.user_id}`); 
+      }
+      return directusResponse.json();
+    });
+
+    await Promise.all(postPromises); 
+
+    response.redirect("/game?status=success"); 
+  } catch (error) {
+    console.error("Error submitting answers:", error);
+    response.status(500).send("Er ging iets mis bij het opslaan van de antwoorden.");
   }
 });
 
