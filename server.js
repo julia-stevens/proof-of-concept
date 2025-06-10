@@ -34,6 +34,11 @@ async function fetchJSON(url) {
   return response.json();
 }
 
+// directus endpoints
+const learningstoneEndpoint = "https://fdnd-agency.directus.app/items/learningstone";
+const factsEndpoint = "_facts";
+const answersEndpoint = "_answers";
+
 // routes
 app.get("/", async function (request, response) {
   response.render("index.liquid");
@@ -52,6 +57,12 @@ app.get("/game", async function (request, response) {
   const groupId = process.env.GROUP_ID;
 
   try {
+    // haal facts op 
+    const factsResponse = await fetch(`${learningstoneEndpoint}${factsEndpoint}`);
+    const factsResponseJSON = await factsResponse.json();
+
+    console.log(factsResponseJSON);
+
     // 1. haal lijst van member IDs
     const membersData = await fetchJSON(`${baseUrl}/model/maxclass_membership/get/class/${groupId}/member`);
     const memberIds = membersData.result;
@@ -70,7 +81,10 @@ app.get("/game", async function (request, response) {
     );
 
     // 3. render template
-    response.render("game.liquid", { members: memberDetails });
+    response.render("game.liquid", { 
+      members: memberDetails,
+      funfacts: factsResponseJSON.data 
+    });
 
   } catch (error) {
     console.error("Fout bij ophalen:", error);

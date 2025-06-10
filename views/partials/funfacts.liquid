@@ -1,4 +1,10 @@
 <option value="start"></option>
+
+{% for fact in funfacts %}
+    <option value="{{ fact.id }}">{{ fact.fact }}</option>
+{% endfor %}
+
+{% comment %} <option value="start"></option>
 <option value="macarena_wenkbrauwen">Ik kan met mijn wenkbrauwen de Macarena doen.</option>
 <option value="beroemdheid_genegeerd">Ik heb ooit per ongeluk een beroemdheid genegeerd omdat ik dacht dat het een collega was.</option>
 <option value="pizza_rand_eerst">Ik eet altijd eerst de rand van een pizza en dan pas de binnenkant.</option>
@@ -15,4 +21,4 @@
 <option value="liedje_snack">Ik heb ooit een liedje geschreven over… mijn favoriete snack.</option>
 <option value="films_herkennen_muziek">Ik herken films aan alleen de filmmuziek.</option>
 <option value="linkshandig_rechtshandig">Ik ben linkshandig, maar doe sommige dingen als een rechtshandige.</option>
-<option value="onesie_weddenschap">Ik heb een keer een weddenschap verloren en moest een week in onesie naar school/werk.</option>
+<option value="onesie_weddenschap">Ik heb een keer een weddenschap verloren en moest een week in onesie naar school/werk.</option> {% endcomment %}
