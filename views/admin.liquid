@@ -1,0 +1,13 @@
+{% assign pageTitle = "Admin | LearningStone" %}
+{% include "partials/head.liquid" %}
+
+<main class="main-admin">
+    <section class="admin-introduction column-align">
+        <h1>Admin pagina</h1>
+        <form method="post" action="/admin">
+            <button type="submit" name="deleteRatings" class="primary-button">Verwijder answers</button>
+        </form>
+    </section>
+</main>
+
+{% include "partials/foot.liquid" %}

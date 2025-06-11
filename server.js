@@ -174,6 +174,25 @@ app.get("/proxy-image", async function (request, response) {
   }
 });
 
+// admin
+app.get("/admin", async function (request, response){
+  response.render("admin.liquid")
+})
+
+app.post("/admin", async function (request, response) {
+    const getAnswers = await fetch(`${learningstoneEndpoint}${answersEndpoint}?filter[for][_starts_with]=sprint`);
+    const getAnswersJSON = await getAnswers.json(); 
+
+    if (getAnswersJSON.data && getAnswersJSON.data.length > 0) {
+      for (const answer of getAnswersJSON.data) {
+        await fetch(`https://fdnd-agency.directus.app/items/learningstone_answers/${answer.id}`, {
+          method: "DELETE",
+        });
+      }
+    }
+    response.redirect(303, "/");
+});
+
 // port
 app.set("port", process.env.PORT || 8000);
 

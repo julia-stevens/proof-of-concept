@@ -1,0 +1,26 @@
+.main-admin {
+    --padding: 1rem 2rem;
+    align-items: start;
+    gap: 2rem;
+    padding: var(--padding);
+    transition: .3s ease-out;
+}
+
+.main-admin a {
+    color: var(--highlight-primary);
+    transition: .2s ease-out; 
+
+    &:hover {
+        color: var(--bg-primary);
+    }
+}
+
+.admin-introduction {
+    gap: 1rem;
+}
+
+@media (min-width: 1200px) {
+    .main-admin {
+        translate: 280px 0;
+    }
+}
