@@ -1,0 +1,19 @@
+@supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+        .member-cards li {
+            animation: linear animate-in;
+            animation-timeline: view();
+        }
+    }
+}
+
+@keyframes animate-in {
+    entry 0%  {
+        opacity: 0; 
+        translate: 0% 100%;
+    }
+    entry 100%  {
+        opacity: 1; 
+        translate: 0% 0%;
+    }
+}
