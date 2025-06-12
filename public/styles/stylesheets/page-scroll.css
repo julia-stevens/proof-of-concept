@@ -1,0 +1,16 @@
+@media (prefers-reduced-motion: no-preference) {
+    @media (max-width: 1200px) {
+        header {
+            position: relative; 
+        }
+
+        footer {
+            translate: 0 100%;
+            transition: .3s ease-out; 
+        }
+
+        .offscreen footer {
+            translate: 0% 0%;
+        }
+    }
+}
