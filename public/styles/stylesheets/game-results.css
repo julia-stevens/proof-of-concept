@@ -46,6 +46,20 @@
     padding: .5rem;
     color: #242538; 
 
+    @media (max-width: 570px) {
+        bottom: 0;
+        left: 0;
+        translate: 0 100%;
+        z-index: 0;
+    }
+
+    @media (min-width: 570px) {
+        top: 0;
+        right: 0;
+        translate: 30% -50%;
+        z-index: 99;
+    }
+}
 
 .correct {
     background-color: var(--highlight-tertiary);
