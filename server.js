@@ -37,8 +37,8 @@ async function fetchJSON(url) {
 
 // directus endpoints
 const learningstoneEndpoint = "https://fdnd-agency.directus.app/items/learningstone";
-const factsEndpoint = "_facts";
-const answersEndpoint = "_answers";
+const factsEndpoint = "_facts"; 
+const answersEndpoint = "_answers"; 
 
 // routes
 app.get("/", async function (request, response) {
@@ -49,24 +49,24 @@ app.get("/profile", async function (request, response) {
   response.render("profile.liquid");
 });
 
-app.get("/game-start", async function (request, response) {
+app.get("/game/start", async function (request, response) {
   response.render("game-start.liquid");
 });
 
-app.get("/game", async function (request, response) {
+app.get("/game/play", async function (request, response) {
   const baseUrl = process.env.BASE_URL;
   const groupId = process.env.GROUP_ID;
 
   try {
-    // haal facts op 
+    // haal facts op
     const factsResponse = await fetch(`${learningstoneEndpoint}${factsEndpoint}`);
     const factsResponseJSON = await factsResponse.json();
 
-    // 1. haal lijst van member IDs
+    // haal lijst van member IDs op
     const membersData = await fetchJSON(`${baseUrl}/model/maxclass_membership/get/class/${groupId}/member`);
     const memberIds = membersData.result;
 
-    // 2. haal details per member
+    // haal details per member op
     const memberDetails = await Promise.all(
       memberIds.map(async function (id) {
         const data = await fetchJSON(`${baseUrl}/model/rsc_export/get/${id}`);
@@ -91,28 +91,31 @@ app.get("/game", async function (request, response) {
   }
 });
 
-app.post("/game", async function (request, response) {
+app.post("/game/play", async function (request, response) {
   console.log("Received form submission. request.body:", request.body); 
   try {
     const answers = [];
     const formData = request.body; 
+    const baseUrl = process.env.BASE_URL; 
+    const groupId = process.env.GROUP_ID; 
 
-    for (const key in formData) {
-      if (key.startsWith("funfact-")) {
-        const memberId = key.replace("funfact-", ""); 
-        const selectedFact = formData[key]; 
+    const membersData = await fetchJSON(`${baseUrl}/model/maxclass_membership/get/class/${groupId}/member`);
+    const memberIds = membersData.result;
 
-        
-        if (selectedFact && selectedFact !== "start" && selectedFact !== "") {
-          answers.push({
-            user_id: parseInt(memberId), 
-            fact: parseInt(selectedFact), 
-            for: "sprint 12 Julia", 
-          });
-        }
-      }
+    for (const memberId of memberIds) {
+      const selectedFact = formData[`funfact-${memberId}`]; // Haal de waarde op voor dit specifieke lid-ID
+
+      const factValue = (selectedFact && selectedFact !== "start" && selectedFact !== "")
+        ? parseInt(selectedFact)
+        : null;
+
+      answers.push({
+        user_id: parseInt(memberId), 
+        fact: factValue,
+        for: "sprint LearningStone", 
+      });
     }
-    // Post each answer to your Directus database
+
     const directusEndpoint = `${learningstoneEndpoint}${answersEndpoint}`;
 
     const postPromises = answers.map(async (answer) => {
@@ -134,14 +137,13 @@ app.post("/game", async function (request, response) {
 
     await Promise.all(postPromises); 
 
-    response.redirect("/game?status=success"); 
+    response.redirect("/game/results"); 
   } catch (error) {
     console.error("Error submitting answers:", error);
     response.status(500).send("Er ging iets mis bij het opslaan van de antwoorden.");
   }
 });
 
-// proxy voor de images
 app.get("/game/results", async function (request, response) {
   const baseUrl = process.env.BASE_URL;
   const groupId = process.env.GROUP_ID;
@@ -299,18 +301,8 @@ app.get("/admin", async function (request, response){
 })
 
 app.post("/admin", async function (request, response) {
-    const getAnswers = await fetch(`${learningstoneEndpoint}${answersEndpoint}?filter[for][_starts_with]=sprint`);
-    const getAnswersJSON = await getAnswers.json(); 
-
-    if (getAnswersJSON.data && getAnswersJSON.data.length > 0) {
-      for (const answer of getAnswersJSON.data) {
-        await fetch(`https://fdnd-agency.directus.app/items/learningstone_answers/${answer.id}`, {
-          method: "DELETE",
-        });
-      }
-    }
-    response.redirect(303, "/");
 });
+
 
 // port
 app.set("port", process.env.PORT || 8000);
@@ -318,6 +310,7 @@ app.set("port", process.env.PORT || 8000);
 app.listen(app.get("port"), function () {
   console.log(`Application started on http://localhost:${app.get("port")}`);
 });
+
 // 404 pagina
 app.use((request, response, next) => {
   response.status(404).render("error.liquid")
