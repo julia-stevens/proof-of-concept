@@ -112,6 +112,7 @@ button {
     border-radius: var(--button-radius);
     padding: var(--button-padding);
     transition: var(--button-transition);
+    color: #242538;
 
     &:hover {
         filter: var(--button-shadow);
