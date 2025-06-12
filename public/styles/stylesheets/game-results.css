@@ -1,0 +1,56 @@
+.main-results {
+    --padding: 1rem 2rem;
+    --shadow: #cfcfcf;
+    --radius: 8px; 
+    align-items: start;
+    gap: 6rem;
+    padding: var(--padding);
+    transition: .3s ease-out;
+
+    .introduction {
+        gap: 1rem;
+
+        .slogan {
+            font-weight: var(--font-bold);
+        }
+    }
+
+    section {
+        gap: 2rem;
+    }
+}
+
+@media (min-width: 570px) {
+    .main-results {
+        gap: 2rem;
+    }
+}
+
+@media (min-width: 1200px) {
+    .main-results {
+        translate: 280px 0;
+    }
+}
+
+.game-form li {
+    position: relative;  
+}
+
+.correct-fact {
+    position: absolute; 
+    background-color: var(--highlight-primary);
+    border-radius: 1rem;
+    margin-bottom: .5rem;
+    overflow-wrap: break-word;
+    white-space: normal;
+    padding: .5rem;
+    color: #242538; 
+
+
+.correct {
+    background-color: var(--highlight-tertiary);
+}
+
+.guessed-fact {
+    padding: var(--padding);
+}
