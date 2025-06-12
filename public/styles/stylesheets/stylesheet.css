@@ -92,6 +92,16 @@ main {
     max-width: max-content;
 }
 
+.main-profile, .main-game, .main-results {
+    margin-bottom: 8rem;
+}
+
+@media (min-width: 570px) {
+    .main-profile, .main-game, .main-results {
+        margin-bottom: 5rem;
+    }
+}
+
 /* buttons */
 button {
     --button-padding: .5rem 1rem;

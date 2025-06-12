@@ -36,6 +36,35 @@ html {
     grid-template-columns: repeat(auto-fill, minmax(25em, 1fr));
     gap: 4rem;
 
+.game-play button {
+    align-items: center;
+    gap: .5rem;
+}
+
+.game-form.loading .form-submit.game-play button::before {
+    content: "Laden";
+}
+
+.game-form.loading .form-submit.game-play button::after {
+    content: url("/assets/loading.svg");
+    width: 1rem;
+    height: 1rem;
+    font-size: 1rem;
+    animation: rotation 1.6s ease-in-out infinite;
+}
+
+.game-form.loading .form-submit.game-play button span {
+    display: none;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 .member-select {
