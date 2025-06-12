@@ -1,0 +1,120 @@
+{% assign pageTitle = "Results | LearningStone" %}
+{% include "partials/head.liquid" %}
+
+<main class="main-results column-align">
+    <section class="introduction column-align">
+        <h1>[NAAM SPEL]</h1>
+        <p class="slogan">Je hebt alle feitjes verdeeld.</p>
+
+        {% if correctCount > 10 %}
+            <p>Je hebt het goed gedaan!</p>
+        {% else %}
+            <p>Je hebt goed je best gedaan!</p>        
+        {% endif %}
+        
+        {% assign totalGuessedMembers = correctCount | plus: incorrectCount | plus: unansweredCount %}
+        <p>Je had <strong>{{ correctCount }}</strong> van de <strong>{{ totalGuessedMembers }}</strong> leden goed.</p>
+
+        {% if latestGameTimestamp %}
+            <p><strong>Resultaten van de sessie op: {{ latestGameTimestamp | date: "%d-%m-%Y %H:%M" }}</strong></p>
+        {% else %}
+            <p><strong>Geen spelresultaten gevonden voor deze groep in de laatste sessie.</strong></p>
+        {% endif %}
+
+        <p>Klik op de knop hieronder om het spel af te sluiten en je resultaten te plaatsen op het prikbord.</p>
+    </section>
+
+    <section class="results-overview column-align">
+        <h2>Resultaten</h2>
+        <p>De groene funfacts zijn juist beantwoord. De gele zijn onjuist beantwoord, en laten het juiste antwoord zien.</p>
+        <div class="game-form column-align">
+            <ul class="column-align">
+                {% for result in matchResults %}
+                <li class="member-select">
+                    {% comment %} <article class="member-select"> {% endcomment %}
+                        <div class="member-info row-align">
+                            <h3>{{ result.member.name }}</h3>
+                            <img 
+                                src="/proxy-image?url={{ result.member.image | url_encode }}" 
+                                alt="{{ result.member.name }}" 
+                                width="100" 
+                                height="100" 
+                                style="object-fit:cover;"
+                            />
+                        </div>
+                            <div class="member-results">
+                                <p class="correct-fact {% if result.isCorrect %}correct{% else %}incorrect{% endif %}">{{ result.correctFactText }}</p>
+
+                                {% if result.isCorrect %}
+                                {% else %}
+                                    <p class="guessed-fact">
+                                        <strong>Jouw gok:</strong> 
+                                        {% if result.submittedFactId %}
+                                            {{ result.submittedFactText }}
+                                        {% else %}
+                                            Niet ingevuld
+                                        {% endif %}
+                                    </p>
+                                {% endif %}
+                        </div>
+                    {% comment %} </article> {% endcomment %}
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+    </section>
+
+    <div class="link">
+        <a href="#" class="primary-button">Sluit af & naar prikbord</a>
+    </div>
+</main>
+
+{% include "partials/foot.liquid" %}
+
+
+{% comment %} {% assign pageTitle = "Results | LearningStone" %}
+{% include "partials/head.liquid" %}
+
+<main class="main-results column-align">
+    <section class="introduction column-align">
+        <h1>[NAAM SPEL]</h1>
+        <p class="slogan">Je hebt alle feitjes verdeeld.</p>
+        <p>Je hebt goed je best gedaan!</p>
+        
+        {% assign totalGuessedMembers = correctCount | plus: incorrectCount | plus: unansweredCount %}
+        <p>
+            Je had <strong>{{ correctCount }}</strong> van de <strong>{{ totalGuessedMembers }}</strong> leden goed.
+            Zie hieronder alle resultaten.
+        </p>
+
+        <p>Klik op verderom het spel af te sluiten en je resutlaten te plaatsen op het prikbord.</p>
+    </section>
+    <section class="column-align">
+        <h2>Leden met juiste feitjes</h2>
+        <div class="game-form column-align">
+            <ul class="column-align">
+                {% for member in members %}
+                <li>
+                    <article class="member-select">
+                    <!-- member info -->
+                    <div class="member-info row-align">
+                        <h3>{{ member.name }}</h3>
+                        <img 
+                            src="/proxy-image?url={{ member.image | url_encode }}" 
+                            alt="{{ member.name }}" 
+                            width="100" 
+                            height="100" 
+                            style="object-fit:cover;"/>
+                    </div>
+                    </article>
+                </li>
+                {% endfor %}
+            </ul>
+          </div>
+    </section>
+    <div class="link">
+        <a href="#" class="primary-button">Sluit af & naar prikbord</a>
+    </div>
+</main>
+
+{% include "partials/foot.liquid" %} {% endcomment %}
