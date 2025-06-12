@@ -301,6 +301,20 @@ app.get("/admin", async function (request, response){
 })
 
 app.post("/admin", async function (request, response) {
+  const getAnswers = await fetch(
+    `${learningstoneEndpoint}${answersEndpoint}?filter[for][_starts_with]=sprint%20LearningStone&limit=-1`
+  );
+  const getAnswersJSON = await getAnswers.json(); 
+
+  if (getAnswersJSON.data && getAnswersJSON.data.length > 0) {
+    await Promise.all(getAnswersJSON.data.map(answer =>
+      fetch(`https://fdnd-agency.directus.app/items/learningstone_answers/${answer.id}`, {
+        method: "DELETE",
+      })
+    ));
+  }
+
+  response.redirect(303, "/");
 });
 
 
