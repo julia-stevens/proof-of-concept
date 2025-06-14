@@ -262,6 +262,124 @@ app.get("/game/results", async function (request, response) {
   }
 });
 
+app.get("/notice-board", async function (request, response) {
+  const baseUrl = process.env.BASE_URL;
+  const groupId = process.env.GROUP_ID;
+  const groupName = "sprint LearningStone"; 
+
+  try {
+    const membersData = await fetchJSON(`${baseUrl}/model/maxclass_membership/get/class/${groupId}/member`);
+    const memberIds = membersData.result;
+    const memberDetails = await Promise.all(
+      memberIds.map(async function (id) {
+        const data = await fetchJSON(`${baseUrl}/model/rsc_export/get/${id}`);
+        return {
+          id,
+          name: data.result?.resource?.title || "Onbekend",
+          image: data.result?.depiction_url || "/default.jpg"
+        };
+      })
+    );
+    const memberMap = new Map(memberDetails.map(member => [member.id, member]));
+
+    const factsResponse = await fetch(`${learningstoneEndpoint}${factsEndpoint}`);
+    const funfactsData = (await factsResponse.json()).data;
+
+    const correctFactIdMap = new Map(); 
+    const factTextMap = new Map(); 
+    funfactsData.forEach(fact => {
+      correctFactIdMap.set(fact.user_id, fact.id);
+      factTextMap.set(fact.id, fact.fact); 
+    });
+
+    const allUserSubmissionsResponse = await fetch(`${learningstoneEndpoint}${answersEndpoint}`);
+    const allUserSubmissionsData = (await allUserSubmissionsResponse.json()).data;
+
+    const groupSubmissions = allUserSubmissionsData.filter(
+      submission => submission.for === groupName
+    );
+
+    let latestGameDate = null;
+    if (groupSubmissions.length > 0) {
+      latestGameDate = groupSubmissions.reduce((maxDate, submission) => {
+        const currentDate = new Date(submission.date_created);
+        return currentDate > maxDate ? currentDate : maxDate;
+      }, new Date(0));
+    }
+
+    const timeWindowMs = 1000; 
+
+    const currentRoundSubmissions = latestGameDate
+      ? groupSubmissions.filter(submission => {
+          const submissionDate = new Date(submission.date_created);
+          return Math.abs(submissionDate.getTime() - latestGameDate.getTime()) <= timeWindowMs;
+        })
+      : [];
+
+    let correctCount = 0;
+    let incorrectCount = 0;
+    let unansweredCount = 0;
+
+    const matchResults = [];
+
+    memberDetails.forEach(member => {
+      const userGuess = currentRoundSubmissions.find(
+        submission => submission.user_id === member.id
+      );
+
+      const correctFactId = correctFactIdMap.get(member.id);
+      const correctFactText = factTextMap.get(correctFactId);
+
+      let isCorrect = false;
+      let submittedFactId = null;
+      let submittedFactText = "Niet ingevuld"; 
+
+      if (userGuess) {
+        submittedFactId = userGuess.fact; 
+        submittedFactText = factTextMap.get(submittedFactId) || "Onbekende feit"; 
+
+        if (submittedFactId !== null && submittedFactId === correctFactId) {
+          correctCount++;
+          isCorrect = true;
+        } else if (submittedFactId === null) {
+          unansweredCount++;
+          isCorrect = false; 
+        } else {
+          incorrectCount++;
+          isCorrect = false;
+        }
+      } else {
+        unansweredCount++;
+      }
+
+      matchResults.push({
+        member: { id: member.id, name: member.name, image: member.image },
+        submittedFactId: submittedFactId,
+        submittedFactText: submittedFactText,
+        correctFactId: correctFactId,
+        correctFactText: correctFactText,
+        isCorrect: isCorrect,
+        wasGuessed: !!userGuess 
+      });
+    });
+
+
+    response.render("notice-board.liquid", { 
+      members: memberDetails, 
+      funfacts: funfactsData, 
+      correctCount: correctCount,
+      incorrectCount: incorrectCount,
+      unansweredCount: unansweredCount,
+      matchResults: matchResults, 
+      latestGameTimestamp: latestGameDate ? latestGameDate.toISOString() : null 
+    });
+
+  } catch (error) {
+    console.error("Fout bij ophalen van resultaten:", error);
+    response.status(500).send("Er ging iets mis bij het ophalen van de resultaten.");
+  }
+});
+
 // proxy voor de images (van ChatGPT)
 app.get("/proxy-image", async function (request, response) {
   // URL vanuit browsers
