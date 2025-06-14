@@ -27,7 +27,7 @@ header a {
     }
 }
 
-header aside {
+header aside ul {
     gap: 1rem;
 }
 
