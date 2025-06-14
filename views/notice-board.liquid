@@ -1,0 +1,42 @@
+{% assign pageTitle = "Prikbord | LearningStone" %}
+{% include "partials/head.liquid" %}
+
+<main class="main-notice-board column-align">
+    <section class="introduction">
+        <h1>Prikbord</h1>
+    </section>
+
+    <section class="notice-board-content">
+        <ol class="column-align">
+            <li class="column-align">
+                <div class="post-member-info row-align">
+                    <div class="profile">
+                        <img src="/assets/profile-pic.svg" alt="Profielfoto">
+                    </div>
+                    <div class="member-name">
+                        <h2>Julia Stevens, 
+                            {% if latestGameTimestamp %}
+                                {{ latestGameTimestamp | date: "%H:%M" }}
+                            {% else %}
+                                -
+                            {% endif %}
+                        </h2>
+                    </div>
+                </div>
+                <div class="post-results-text">
+                    {% assign totalGuessedMembers = correctCount | plus: incorrectCount | plus: unansweredCount %}
+                    <p>Ik had <strong>{{ correctCount }}</strong> van de <strong>{{ totalGuessedMembers }}</strong> leden goed.</p> 
+                </div>
+                <form class="post-form column-align">
+                    <label for="post-comment">Type hier je bericht</label>
+                    <input type="text" id="post-comment">
+                    <div class="form-submit">
+                        <button type="button" class="primary-button">Commentaar</button>
+                    </div>
+                </form>
+            </li>
+        </ol>
+    </section>
+</main>
+
+{% include "partials/foot.liquid" %}
