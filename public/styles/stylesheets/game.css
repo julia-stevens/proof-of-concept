@@ -314,3 +314,29 @@ select:open.option-static option {
         order: 0;
     }
 }
+
+/* view transition */
+selectedcontent.vt-supported  {
+    opacity: 0; /* start hidden */
+    pointer-events: none;
+  }
+  
+  /* Show and animate only when visible */
+selectedcontent.vt-supported.visible {
+    animation: bounce-in 1s ease forwards;
+    pointer-events: auto;
+    opacity: 1;
+  }
+
+@keyframes bounce-in {
+    0% {
+      opacity: 0;
+      transform: scale(.3);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+    70% { transform: scale(.9); }
+    100% { transform: scale(1); }
+}
