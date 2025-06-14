@@ -196,6 +196,7 @@ select option {
     margin-bottom: .5rem;
     overflow-wrap: break-word;
     white-space: normal;
+    padding: .5rem;
 }
 
 /* SELECT open */
