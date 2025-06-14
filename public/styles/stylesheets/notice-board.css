@@ -1,0 +1,53 @@
+.main-notice-board {
+    --padding: 1rem 2rem;
+    --shadow: #cfcfcf; 
+    --drop-shadow: drop-shadow(0px 5px 5px var(--shadow));
+    --radius: 8px; 
+    align-items: start;
+    gap: 2rem;
+    padding: var(--padding);
+    transition: .3s ease-out;
+
+    width: max-content;
+    max-width: 380px;
+    height: calc(100vh - 66px);
+    overflow-y: auto;
+}
+
+.funfact-input textarea {
+    display: block; 
+}
+
+@media (min-width: 1200px) {
+    .main-notice-board {
+        position: absolute; 
+        right: 0;
+        background-color: var(--text-primary-light);
+    }
+}
+
+.main-notice-board ol {
+    gap: 2rem;
+    width: 80vw;
+    max-width: 315px;
+}
+
+.main-notice-board li {
+    background-color: var(--bg-tertiary);
+    filter: var(--drop-shadow);
+    border-radius: var(--radius);
+    padding: var(--padding);
+    gap: 1rem;
+}
+
+.main-notice-board li h2 {
+    font-size: 1.2rem;
+}
+
+li .post-member-info {
+    gap: 1rem;
+}
+
+li .post-form {
+    gap: .5rem;
+}
