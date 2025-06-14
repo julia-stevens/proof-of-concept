@@ -47,6 +47,7 @@
     color: #242538; 
 
     @media (max-width: 570px) {
+        position: absolute;      
         bottom: 0;
         left: 0;
         translate: 0 100%;
@@ -54,9 +55,10 @@
     }
 
     @media (min-width: 570px) {
+        position: absolute;
         top: 0;
         right: 0;
-        translate: 30% -50%;
+        translate: 10% -70%;
         z-index: 99;
     }
 }
