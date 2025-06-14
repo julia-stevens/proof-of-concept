@@ -147,7 +147,7 @@ app.post("/game/play", async function (request, response) {
 app.get("/game/results", async function (request, response) {
   const baseUrl = process.env.BASE_URL;
   const groupId = process.env.GROUP_ID;
-  const groupName = "sprint 12 Julia"; 
+  const groupName = "sprint LearningStone"; 
 
   try {
     const membersData = await fetchJSON(`${baseUrl}/model/maxclass_membership/get/class/${groupId}/member`);

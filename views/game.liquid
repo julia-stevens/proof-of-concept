@@ -38,7 +38,13 @@
                   {% include "partials/funfacts.liquid" funfacts: funfacts %}
                 </select>
               </label>
+
             {% comment %} </article> {% endcomment %}
+            <button type="button" class="reset-select column-align">
+              <span>Kies</span>
+              <span>opnieuw</span>
+              {% render "public/assets/reload.liquid" %}
+            </button>
           </li>
         {% endfor %}
       </ul>
