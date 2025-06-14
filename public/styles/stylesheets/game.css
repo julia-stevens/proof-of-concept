@@ -152,6 +152,10 @@ select, ::picker(select) {
     appearance: base-select;
 }
 
+selectedcontent:empty {
+    display: none; 
+}
+
 /* SELECTED CONTENT */
 selectedcontent {
     background-color: var(--highlight-primary);
@@ -218,8 +222,8 @@ select:open::picker-icon {
 select:open option {
     @media (prefers-reduced-motion:no-preference) {
         transition:
-        opacity .5s calc( (sibling-index() - 1) * .075s ),
-        translate 1s calc( (sibling-index() - 1) * .075s );
+            opacity .5s calc( (sibling-index() - 1) * .075s ),
+            translate 1s calc( (sibling-index() - 1) * .075s );
     }
 
     @starting-style {
@@ -232,9 +236,81 @@ select:open option {
     }
 }
 
+/* Reduced animation */
+/* Full animation (used for first few opened selects) */
+select:open.option-animated option {
+    @media (prefers-reduced-motion: no-preference) {
+      transition:
+        opacity 0.5s calc((sibling-index() - 1) * 0.075s),
+        translate 1s calc((sibling-index() - 1) * 0.075s);
+    }
+  
+    @starting-style {
+      opacity: 0;
+      translate: -100% 0%;
+    }
+  
+    &:first-of-type {
+      display: none;
+    }
+  }
+  
+/* Faster animation (for middle tier selects) */
+select:open.option-faster option {
+    @media (prefers-reduced-motion: no-preference) {
+        transition:
+        opacity 0.2s calc((sibling-index() - 1) * 0.02s),
+        translate 0.3s calc((sibling-index() - 1) * 0.02s);
+    }
+
+    @starting-style {
+        opacity: 0.5;
+        translate: -50% 0%;
+    }
+
+    &:first-of-type {
+        display: none;
+    }
+}
+
+/* No animation (after user opens many selects) */
+select:open.option-static option {
+    transition: none !important;
+    opacity: 1 !important;
+    translate: none !important;
+
+    &:first-of-type {
+        display: none;
+    }
+}
+  
+
 @media (min-width: 1200px) {
     ::picker(select) {
         translate: 280px 0;
     }
 }
 
+/* remove button */
+.reset-select {
+    cursor: pointer;
+    align-items: center;
+    background-color: var(--bg-tertiary);
+    border-radius: var(--radius);
+
+    position: absolute; 
+    top: 0;
+    right: 0;
+    translate: 0% 25%;
+    z-index: 999;
+
+    opacity: 0;  
+
+    span {
+        order: 1;
+    }
+
+    svg {
+        order: 0;
+    }
+}
