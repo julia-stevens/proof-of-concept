@@ -173,7 +173,7 @@ selectedcontent {
         position: absolute;
         top: 0;
         right: 0;
-        translate: 30% -50%;
+        translate: 10% -70%;
         z-index: 99;
     }
 }
