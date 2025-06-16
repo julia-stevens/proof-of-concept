@@ -17,6 +17,11 @@ const engine = new Liquid();
 app.engine("liquid", engine.express());
 app.set("views", "./views");
 
+// directus endpoints
+const learningstoneEndpoint = "https://fdnd-agency.directus.app/items/learningstone";
+const factsEndpoint = "_facts"; 
+const answersEndpoint = "_answers"; 
+
 // herbruikbare fetch-functie
 async function fetchJSON(url) {
   const token = process.env.TOKEN;
@@ -35,10 +40,6 @@ async function fetchJSON(url) {
   return response.json();
 }
 
-// directus endpoints
-const learningstoneEndpoint = "https://fdnd-agency.directus.app/items/learningstone";
-const factsEndpoint = "_facts"; 
-const answersEndpoint = "_answers"; 
 
 // routes
 app.get("/", async function (request, response) {
@@ -62,7 +63,7 @@ app.get("/game/play", async function (request, response) {
     const factsResponse = await fetch(`${learningstoneEndpoint}${factsEndpoint}`);
     const factsResponseJSON = await factsResponse.json();
 
-    // haal lijst van member IDs op
+    // haal lijst van members op
     const membersData = await fetchJSON(`${baseUrl}/model/maxclass_membership/get/class/${groupId}/member`);
     const memberIds = membersData.result;
 
@@ -73,8 +74,8 @@ app.get("/game/play", async function (request, response) {
 
         return {
           id,
-          name: data.result?.resource?.title || "Onbekend",
-          image: data.result?.depiction_url || "/default.jpg"
+          name: data.result?.resource?.title,
+          image: data.result?.depiction_url
         };
       })
     );
@@ -86,8 +87,8 @@ app.get("/game/play", async function (request, response) {
     });
 
   } catch (error) {
-    console.error("Fout bij ophalen:", error);
-    response.status(500).send("Er ging iets mis bij het ophalen van de leden");
+    console.error(error);
+    response.status(500);
   }
 });
 
@@ -139,8 +140,8 @@ app.post("/game/play", async function (request, response) {
 
     response.redirect("/game/results"); 
   } catch (error) {
-    console.error("Error submitting answers:", error);
-    response.status(500).send("Er ging iets mis bij het opslaan van de antwoorden.");
+    console.error(error);
+    response.status(500);
   }
 });
 
@@ -157,8 +158,8 @@ app.get("/game/results", async function (request, response) {
         const data = await fetchJSON(`${baseUrl}/model/rsc_export/get/${id}`);
         return {
           id,
-          name: data.result?.resource?.title || "Onbekend",
-          image: data.result?.depiction_url || "/default.jpg"
+          name: data.result?.resource?.title,
+          image: data.result?.depiction_url
         };
       })
     );
@@ -218,7 +219,7 @@ app.get("/game/results", async function (request, response) {
 
       if (userGuess) {
         submittedFactId = userGuess.fact; 
-        submittedFactText = factTextMap.get(submittedFactId) || "Onbekende feit"; 
+        submittedFactText = factTextMap.get(submittedFactId); 
 
         if (submittedFactId !== null && submittedFactId === correctFactId) {
           correctCount++;
@@ -257,8 +258,8 @@ app.get("/game/results", async function (request, response) {
     });
 
   } catch (error) {
-    console.error("Fout bij ophalen van resultaten:", error);
-    response.status(500).send("Er ging iets mis bij het ophalen van de resultaten.");
+    console.error(error);
+    response.status(500);
   }
 });
 
@@ -275,8 +276,8 @@ app.get("/notice-board", async function (request, response) {
         const data = await fetchJSON(`${baseUrl}/model/rsc_export/get/${id}`);
         return {
           id,
-          name: data.result?.resource?.title || "Onbekend",
-          image: data.result?.depiction_url || "/default.jpg"
+          name: data.result?.resource?.title,
+          image: data.result?.depiction_url
         };
       })
     );
@@ -336,7 +337,7 @@ app.get("/notice-board", async function (request, response) {
 
       if (userGuess) {
         submittedFactId = userGuess.fact; 
-        submittedFactText = factTextMap.get(submittedFactId) || "Onbekende feit"; 
+        submittedFactText = factTextMap.get(submittedFactId); 
 
         if (submittedFactId !== null && submittedFactId === correctFactId) {
           correctCount++;
@@ -375,8 +376,8 @@ app.get("/notice-board", async function (request, response) {
     });
 
   } catch (error) {
-    console.error("Fout bij ophalen van resultaten:", error);
-    response.status(500).send("Er ging iets mis bij het ophalen van de resultaten.");
+    console.error(error);
+    response.status(500);
   }
 });
 
@@ -408,8 +409,8 @@ app.get("/proxy-image", async function (request, response) {
     imageResponse.body.pipe(response);
 
   } catch (err) {
-    console.error("Image proxy error:", err);
-    response.status(500).send("Error proxying image");
+    console.error(err);
+    response.status(500);
   }
 });
 
@@ -435,6 +436,10 @@ app.post("/admin", async function (request, response) {
   response.redirect(303, "/");
 });
 
+// 404 pagina
+app.use((request, response, next) => {
+  response.status(404).render("error.liquid")
+})
 
 // port
 app.set("port", process.env.PORT || 8000);
@@ -442,8 +447,3 @@ app.set("port", process.env.PORT || 8000);
 app.listen(app.get("port"), function () {
   console.log(`Application started on http://localhost:${app.get("port")}`);
 });
-
-// 404 pagina
-app.use((request, response, next) => {
-  response.status(404).render("error.liquid")
-})
