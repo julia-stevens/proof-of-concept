@@ -16,6 +16,6 @@
 
 @media (min-width: 1200px) {
     .main-game-start {
-        translate: 280px 0;
+        transform: translate(280px, 0);
     }
 }

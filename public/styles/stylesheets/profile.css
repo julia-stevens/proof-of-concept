@@ -20,6 +20,6 @@
 
 @media (min-width: 1200px) {
     .main-profile {
-        translate: 280px 0;
+        transform: translate(280px, 0);
     }
 }

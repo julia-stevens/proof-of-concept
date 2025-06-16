@@ -18,7 +18,7 @@ html {
 
 @media (min-width: 1200px) {
     .main-game {
-        translate: 280px 0;
+        transform: translate(280px, 0);
     }
 }
 
@@ -99,13 +99,14 @@ html {
 
     background-color: var(--bg-tertiary);
     filter: drop-shadow(0px 5px 5px var(--shadow));
+}
 
-    h3 {
-        order: 1;
-    }
-    img {
-        order: 0;
-    }
+.member-info h3 {
+    order: 1;
+}
+
+.member-info img {
+    order: 0;
 }
 
 select {
@@ -305,14 +306,14 @@ select:open.option-static option {
     z-index: 999;
 
     opacity: 0;  
+}
 
-    span {
-        order: 1;
-    }
+.reset-select span {
+    order: 1;
+}
 
-    svg {
-        order: 0;
-    }
+.reset-select svg {
+    order: 0;
 }
 
 /* view transition */
