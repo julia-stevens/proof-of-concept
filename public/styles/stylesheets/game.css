@@ -121,6 +121,7 @@ select {
     border-radius: var(--radius);
     border: none;
     padding: 0 1rem;
+    background-color: transparent;
 }
 
 ::picker(select) {
