@@ -1,28 +1,34 @@
+// check of view transition API ondersteunt wordt, anders alert 
 if (!document.startViewTransition) {
-    alert(
-      "Your browser does not support view transitions so this pen will not work in your browser, it does work in any modern Chromium browser!"
-    );
-  }
+  alert(
+    "Your browser does not support view transitions so this pen will not work in your browser, it does work in any modern Chromium browser!"
+  );
+}
 
-  const selectedContents = document.querySelectorAll("selectedcontent");
+const selectedContents = document.querySelectorAll("selectedcontent");
+const selectsVT = document.querySelectorAll(".funfact-select");
 
-  selectedContents.forEach(selectedContent => {
-    selectedContent.classList.add("vt-supported");
-  });
+// voeg class vt-supported toe aan alle <selectedcontent>s
+selectedContents.forEach(selectedContent => {
+  selectedContent.classList.add("vt-supported");
+});
 
-  const selects = document.querySelectorAll(".funfact-select");
-  
-  selects.forEach(select => {
-    select.addEventListener("change", () => {
-      // Find the selectedcontent inside this select (since it"s inside button inside select)
-      const chosenOptionContainer = select.querySelector("selectedcontent"); 
-  
-      if (!chosenOptionContainer) return;
-  
-      document.startViewTransition(() => {
-        const selectedOption = select.options[select.selectedIndex];
-        chosenOptionContainer.textContent = selectedOption.textContent;
-        chosenOptionContainer.classList.add("visible");
-      });
+// voor elke select
+selectsVT.forEach(select => {
+  // luister naar "change" event 
+  select.addEventListener("change", () => {
+    // haal specifieke <selectedcontent> op
+    const chosenOptionContainer = select.querySelector("selectedcontent"); 
+
+    document.startViewTransition(() => {
+      // haal gekozen option op 
+      const selectedOption = select.options[select.selectedIndex];
+
+      // voeg tekst van gekozen option toe
+      chosenOptionContainer.textContent = selectedOption.textContent;
+
+      // voeg class "visible" toe
+      chosenOptionContainer.classList.add("visible");
     });
   });
+});

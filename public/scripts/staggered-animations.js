@@ -1,13 +1,19 @@
+const selectsSG = document.querySelectorAll("select");
+
+// counter van 'geopende' <select>s
 let openedCount = 0;
 
-document.querySelectorAll("select").forEach(select => {
-  select.addEventListener("click", () => {
+// voor elke select
+selectsSG.forEach(select => {
+  // luister naar "mousedown" event
+  select.addEventListener("mousedown", () => {
+    // zet transition-ed = true
+    select.dataset.transitioned = "true";
 
-    if (select.dataset.transitioned) return;
-
-    select.dataset.transitioned = "true"; 
+    // en tel dit aan de counter op 
     openedCount++;
 
+    // verwijder (mogelijke) eerder toegevoegde classes
     select.classList.remove("option-animated", "option-faster", "option-static");
 
     if (openedCount <= 5) {
