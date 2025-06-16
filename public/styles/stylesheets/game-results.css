@@ -45,16 +45,20 @@
     white-space: normal;
     padding: .5rem;
     color: #242538; 
+}
 
-    @media (max-width: 570px) {
+@media (max-width: 570px) {
+    .correct-fact {
         position: absolute;      
         bottom: 0;
         left: 0;
         transform: translate(0, 100%);
         z-index: 0;
     }
+}
 
-    @media (min-width: 570px) {
+@media (min-width: 570px) {
+    .correct-fact {
         position: absolute;
         top: 0;
         right: 0;
