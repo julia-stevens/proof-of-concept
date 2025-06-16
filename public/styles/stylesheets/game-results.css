@@ -50,7 +50,7 @@
         position: absolute;      
         bottom: 0;
         left: 0;
-        translate: 0 100%;
+        transform: translate(0, 100%);
         z-index: 0;
     }
 
@@ -58,7 +58,7 @@
         position: absolute;
         top: 0;
         right: 0;
-        translate: 10% -70%;
+        transform: translate(10%, -70%);
         z-index: 99;
     }
 }
