@@ -96,18 +96,18 @@ aside {
     height: 100vh;
     padding: var(--padding);
     border-right: 1px solid var(--text-primary);
-    translate: -100% 0%;
+    transform: translate(-100%, 0%);
     transition: .3s ease-out;
     background-color: var(--bg-tertiary);
 }
 
 #menu-header:checked ~ aside {
-    translate: 0 0;
+    transform: translate(0,0);
 }
 
 @media (min-width: 1200px) {
     header aside {
-        translate: 0 0;
+        transform: translate(0,0);
         background-color: var(--bg-secondary);
     }
     
