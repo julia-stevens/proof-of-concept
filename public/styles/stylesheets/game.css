@@ -162,7 +162,6 @@ selectedcontent:empty {
 selectedcontent {
     background-color: var(--highlight-primary);
     border-radius: 1rem;
-    /* margin-bottom: .5rem; */
     overflow-wrap: break-word;
     white-space: normal;
     padding: .5rem;
@@ -238,8 +237,6 @@ select:open option {
     }
 }
 
-/* Reduced animation */
-/* Full animation (used for first few opened selects) */
 select:open.option-animated option {
     @media (prefers-reduced-motion: no-preference) {
       transition:
@@ -257,7 +254,6 @@ select:open.option-animated option {
     }
   }
   
-/* Faster animation (for middle tier selects) */
 select:open.option-faster option {
     @media (prefers-reduced-motion: no-preference) {
         transition:
@@ -275,7 +271,6 @@ select:open.option-faster option {
     }
 }
 
-/* No animation (after user opens many selects) */
 select:open.option-static option {
     transition: none !important;
     opacity: 1 !important;
@@ -293,7 +288,6 @@ select:open.option-static option {
     }
 }
 
-/* remove button */
 .reset-select {
     cursor: pointer;
     align-items: center;
@@ -317,13 +311,11 @@ select:open.option-static option {
     order: 0;
 }
 
-/* view transition */
 selectedcontent.vt-supported  {
-    opacity: 0; /* start hidden */
+    opacity: 0; 
     pointer-events: none;
   }
   
-  /* Show and animate only when visible */
 selectedcontent.vt-supported.visible {
     animation: bounce-in 1s ease forwards;
     pointer-events: auto;
