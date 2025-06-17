@@ -2,62 +2,63 @@
 {% include "partials/head.liquid" %}
 
 <main class="main-game column-align" id="main-content">
-  <section class="introduction column-align">
-    <h1>Match de feitjes</h1>
-    <p>Koppel de feitjes aan het juiste lid</p>
-  </section>
+    <section class="introduction column-align">
+        <h1>Match de feitjes</h1>
+        <p>Koppel de feitjes aan het juiste lid</p>
+    </section>
 
-  <section class="members column-align">
-    <div class="title">
-      <h2>Leden</h2>
-    </div>
+    <section class="members column-align">
+        <div class="title">
+            <h2>Leden</h2>
+        </div>
 
-    <form action="/game/play" method="post" class="game-form column-align" data-enhanced="form-{{ member.id }}">
-      <ul class="column-align member-cards">
-        {% for member in members %}
-          <li class="member-select">
-            {% comment %} <article class="member-select"> {% endcomment %}
-              <!-- member info -->
-              <div class="member-info row-align">
-                <h3>{{ member.name }}</h3>
-                <img 
-                  src="/proxy-image?url={{ member.image | url_encode }}" 
-                  alt="{{ member.name }}" 
-                  width="100" 
-                  height="100" 
-                  style="object-fit:cover;"/>
-              </div>
+        <form action="/game/play" method="post" class="game-form column-align" data-enhanced="form-{{ member.id }}">
+            <ul class="column-align member-cards">
+                {% for member in members %}
+                    <li class="member-select">
+                        {% comment %} <article class="member-select"> {% endcomment %}
+                        
+                        <!-- member info -->
+                        <div class="member-info row-align">
+                            <h3>{{ member.name }}</h3>
+                            <img 
+                                src="/proxy-image?url={{ member.image | url_encode }}" 
+                                alt="{{ member.name }}" 
+                                width="100" 
+                                height="100" 
+                                style="object-fit:cover;" />
+                        </div>
 
-              <!-- select met options -->
-              <label>
-                <span>Welk feitje past bij {{ member.name }}?</span>
-                <select name="funfact-{{ member.id }}" id="funfact-{{ member.id }}" class="funfact-select">
-                  <button id="buttonSelectedContent">
-                    <selectedcontent id="selectedContent"></selectedcontent>
-                  </button>
-                  {% include "partials/funfacts.liquid" funfacts: funfacts %}
-                </select>
-              </label>
+                        <!-- select met options -->
+                        <label>
+                            <span>Welk feitje past bij {{ member.name }}?</span>
+                            <select name="funfact-{{ member.id }}" id="funfact-{{ member.id }}" class="funfact-select">
+                                <button id="buttonSelectedContent">
+                                    <selectedcontent id="selectedContent"></selectedcontent>
+                                </button>
+                                {% include "partials/funfacts.liquid" funfacts: funfacts %}
+                            </select>
+                        </label>
 
-            {% comment %} </article> {% endcomment %}
-            <button type="button" class="reset-select column-align">
-              <span>Kies</span>
-              <span>opnieuw</span>
-              {% render "public/assets/reload.liquid" %}
-            </button>
-          </li>
-        {% endfor %}
-      </ul>
+                        {% comment %} </article> {% endcomment %}
 
-      <!-- submit button -->
-      <div class="form-submit game-play">
-        <button type="submit" class="primary-button row-align">
-          <span>Opslaan</span>
-        </button>
-      </div>
-    </form>
+                        <button type="button" class="reset-select column-align">
+                            <span>Kies</span>
+                            <span>opnieuw</span>
+                            {% render "public/assets/reload.liquid" %}
+                        </button>
+                    </li>
+                {% endfor %}
+            </ul>
 
-  </section>
+            <!-- submit button -->
+            <div class="form-submit game-play">
+                <button type="submit" class="primary-button row-align">
+                    <span>Opslaan</span>
+                </button>
+            </div>
+        </form>
+    </section>
 </main>
 
 {% include "partials/foot.liquid" %}

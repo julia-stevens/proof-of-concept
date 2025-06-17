@@ -13,6 +13,7 @@
         {% endif %}
         
         {% assign totalGuessedMembers = correctCount | plus: incorrectCount | plus: unansweredCount %}
+        
         <p>Je had <strong>{{ correctCount }}</strong> van de <strong>{{ totalGuessedMembers }}</strong> leden goed.</p>
 
         {% if latestGameTimestamp %}
@@ -27,10 +28,11 @@
     <section class="results-overview column-align">
         <h2>Resultaten</h2>
         <p>De groene funfacts zijn juist beantwoord. De gele zijn onjuist beantwoord, en laten het juiste antwoord zien.</p>
+        
         <div class="game-form column-align">
             <ul class="column-align">
                 {% for result in matchResults %}
-                <li class="member-select">
+                    <li class="member-select">
                         <div class="member-info row-align">
                             <h3>{{ result.member.name }}</h3>
                             <img 
@@ -41,27 +43,27 @@
                                 style="object-fit:cover;"
                             />
                         </div>
-                            <div class="member-results">
-                                <p class="correct-fact {% if result.isCorrect %}correct{% else %}incorrect{% endif %}">{{ result.correctFactText }}</p>
+                        <div class="member-results">
+                            <p class="correct-fact {% if result.isCorrect %}correct{% else %}incorrect{% endif %}">{{ result.correctFactText }}</p>
 
-                                {% if result.isCorrect %}
-                                    <p class="guessed-fact">
-                                        <strong>Jouw gok:</strong>
+                            {% if result.isCorrect %}
+                                <p class="guessed-fact">
+                                    <strong>Jouw gok:</strong>
+                                    {{ result.submittedFactText }}
+                                </p>
+                            {% else %}
+                                <p class="guessed-fact">
+                                    <strong>Jouw gok:</strong> 
+                                    {% if result.submittedFactId %}
                                         {{ result.submittedFactText }}
-                                    </p>
-                                {% else %}
-                                    <p class="guessed-fact">
-                                        <strong>Jouw gok:</strong> 
-                                        {% if result.submittedFactId %}
-                                            {{ result.submittedFactText }}
-                                        {% else %}
-                                            Niet ingevuld
-                                        {% endif %}
-                                    </p>
-                                {% endif %}
+                                    {% else %}
+                                        Niet ingevuld
+                                    {% endif %}
+                                </p>
+                            {% endif %}
                         </div>
-                </li>
-            {% endfor %}
+                    </li>
+                {% endfor %}
             </ul>
         </div>
     </section>
