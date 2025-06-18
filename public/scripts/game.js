@@ -4,7 +4,7 @@ const resetButtons = document.querySelectorAll(".reset-select");
 // loop door elke select en reset knop
 selects.forEach((select, i) => {
   // luister naar "change" event
-  select.addEventListener("change", updateDropdowns);
+  select.addEventListener("change", () => updateDropdowns(select));
   
   // luister naar "click" event op reset knop
   resetButtons[i].addEventListener("click", () => {
@@ -12,11 +12,11 @@ selects.forEach((select, i) => {
     select.value = "start";
 
     // roep updateDropdowns functie aan
-    updateDropdowns();
+    updateDropdowns(select);
   });
 });
 
-function updateDropdowns() {
+function updateDropdowns(changedSelect) {
   // maak een Set van alle gekozen waarden (behalve start)
   const selectedValues = new Set( 
     Array.from(selects) // zet om in array
@@ -32,15 +32,18 @@ function updateDropdowns() {
     // met bijbehorende reset knop
     const resetButton = resetButtons[i];
     
-    // value = start, opacity 0, anders opacity 1
-    if (select.value === "start") {
-      resetButton.style.opacity = "0";
-      select.style.backgroundColor = "transparent";
-    } else {
-      resetButton.style.opacity = "1";
-      select.style.backgroundColor = "white";
+    // verander achtergrondkleur van de gewijzigde select
+    // & toon/verberg reset knop
+    if (select === changedSelect) {
+      if (select.value === "start" || select.value === "") {
+        resetButton.style.opacity = "0";
+        select.style.setProperty("background-color", "transparent");
+      } else {
+        resetButton.style.opacity = "1";
+        select.style.setProperty("background-color", "white");
+      }
     }
-    
+
     // loop door alle opties
     options.forEach(option => {
       // start value is beschikbaar
