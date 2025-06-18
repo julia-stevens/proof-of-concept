@@ -35,7 +35,7 @@ function updateDropdowns(changedSelect) {
     // verander achtergrondkleur van de gewijzigde select
     // & toon/verberg reset knop
     if (select === changedSelect) {
-      if (select.value === "start" || select.value === "") {
+      if (select.value === "start") {
         resetButton.style.opacity = "0";
         select.style.setProperty("background-color", "transparent");
       } else {
