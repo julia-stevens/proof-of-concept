@@ -1,7 +1,7 @@
 // check of view transition API ondersteunt wordt, anders alert 
 if (!document.startViewTransition) {
   alert(
-    "Your browser does not support view transitions so this pen will not work in your browser, it does work in any modern Chromium browser!"
+    "Your browser does not support view transitions, it does work in any modern Chromium browser!"
   );
 }
 
