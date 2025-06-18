@@ -35,8 +35,12 @@ function updateDropdowns() {
     // value = start, opacity 0, anders opacity 1
     if (select.value === "start") {
       resetButton.style.opacity = "0";
+      select.style.backgroundColor = "transparent";
+      console.log("trans")
     } else {
       resetButton.style.opacity = "1";
+      select.style.backgroundColor = "white";
+      console.log("leeg")
     }
     
     // loop door alle opties
