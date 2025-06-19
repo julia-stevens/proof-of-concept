@@ -109,7 +109,7 @@ De website is opgebouwd vanuit het mobile first principe en dus op verschillende
 Daarnaast heb ik in deze laag bij de resultaten pagina de goede/juiste antwoorden aan de hand van kleur onderscheden, zodat het direct te zien is of een antwoord goed of fout was. 
 
 ##### 4 - Pleasurable 
-In de pleasurable laag heb ik allerlei enhancements toegevoegd: zo scrollen de header en het mobiel menu in/uit beeld op basis van het scroll gedrag van de gebruiker. De opties komen in beeld met een animatie, die ook sneller wordt en uiteindelijk stopt als een gebruiker meerdere keren het menu heeft geopened. Daarnaast heb ik view transitions toegepast, zodat o.a. de gekozen funfact met animatie in beeld verschijnt. En ziet de gebruiker een loading state, voordat de antwoorden verstuurd worden. Voor de visuals, zie het begin van de beschrijving. 
+In de pleasurable laag heb ik allerlei enhancements toegevoegd: zo scrollen de header en het mobiel menu in/uit beeld op basis van het scroll gedrag van de gebruiker. De opties komen in beeld met een animatie, die ook sneller wordt en uiteindelijk stopt als een gebruiker meerdere keren het menu heeft geopened. Daarnaast heb ik view transitions toegepast, zodat o.a. de gekozen funfact met animatie in beeld verschijnt. En ziet de gebruiker een loading state, voordat de antwoorden verstuurd worden. Tot slot heb ik ook een scroll-driven animatie toegevoegd op de cards. Voor de visuals, zie het begin van de beschrijving. 
 
 ## Kenmerken 
 In dit project maak ik gebruik van Node.js en Express om een webserver op te zetten. Ik gebruik Liquid als template-engine voor het genereren van dynamische HTML-pagina's. Data wordt opgehaald via verschillende API-endpoints, zowel Directus als LearningStone API. 
