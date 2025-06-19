@@ -81,13 +81,35 @@ Ik heb zoveel mogelijk de huisstuil van het platform LearningStone aangehouden, 
 De website is gebouwd met het mobile-first principe. Ik ben begonnen met het ontwerpen en bouwen van de mobiele versie van de website, en heb dit daarna voor desktop gebouwd. Zie onderstaand de verschillende layouts: 
 <img src="https://github.com/user-attachments/assets/5326be2b-877c-4af3-8941-6b5197cdccaf" width="550" />
 
+### Toegankelijkheid 
+Op verschillende manieren is rekeningen gehouden met de toegankelijkheid van de website: 
+- Skip link om direct naar de belangrijkste content te gaan.
+- Semantische HTML, zodat de website ook met het toetsenbord en screen reader te gebruiken is (getest in issue [`#33`](https://github.com/julia-stevens/proof-of-concept/issues/33)).
+- Geen overbodige `alt` teksten, zodat screen readers niet dezelfde content gaan herhalen.
+- Voldoende kleur contrast.
+
+De toegankelijkheid, zoals hier beschreven staat, is allemaal getest en gedocumenteerd in issue [`#33`](https://github.com/julia-stevens/proof-of-concept/issues/33).
+
 ### Hierarchy of User Needs
 Deze website, inclusief bijbehorende functionaliteiten zijn opgebouwd volgens de [Hierarchy of User Needs](https://www.nngroup.com/articles/theory-user-delight/). Dit is een model dat beschrijft aan welke basisvoorwaarden een digitale ervaring moet voldoen voordat het echt waardevol en betekenisvol wordt voor de gebruiker. Het bestaat uit verschillende niveaus die ik bij onderstaande, uitgelichte feature zal toelichten. 
 
+In dit model komt ook het principe progressively enhanced terug. Hiermee wordt bedoeld dat een functie voor zoveel mogelijk gebruikers te gebruiken is. Dit begint dus bij een sterke basis, waarmee de functie al werkt en wordt per laag uitgebreid tot de laatste laag met pleasurables, voor een zo goed mogelijke gebruikerservaring. 
+
 #### "Match de feitjes"
+De "Match de feitjes" functie geeft gebruikers de mogelijkheid om ingestuurde funfacts te koppelen aan de juiste leden van de groep. Na het versturen van de antwoorden, ontvangt de gebruiker een overzicht van de resultaten en worden de resultaten gepost naar het prikbord. Voor nu is dat nog met tekst, in de toekomst zou dit met een grafiek kunnen worden uitgebreid. 
+
 ##### 1 & 2 - Functional & Reliable
+In de basis laag was het belangrijk dat de core functionaliteit, het koppelen van de funfacts aan gebruikers en het verkregen van de resultaten, altijd werkt. Dit heb ik gedaan door semantische HTML te schrijven. Dit wil zeggen dat de functie met puur HTML werkt, maar ook draagt dit bij aan toegankelijkheid, namelijk beter navigeerbaar voor bijvoorbeeld screen readers. Daarnaast heb ik de huisstijl toegepast in eenvoudige CSS, die in verschillende browsers (nieuw en oud) ondersteund wordt. Dit heb ik getest in issue [`#35`](https://github.com/julia-stevens/proof-of-concept/issues/35). Hierin is dus ook de eerste stap van het progressively enhanced principe terug te zien. 
+
 ##### 3 - Usable 
+De website is opgebouwd vanuit het mobile first principe en dus op verschillende schermbreedtes te gebruiken. Ook is er in deze laag aanvullende styling toegevoegd, zoals de member cards. Hierbij heb ik ervoor gezorgd dat het ingegeven antwoord altijd terug te zien is, ook als de nieuwste CSS niet wordt ondersteund. Zie onderstaande afbeelding ter illustratie: 
+
+![image](https://github.com/user-attachments/assets/e634a5b2-f1ef-4625-aec0-be14d4493396)
+
+Daarnaast heb ik in deze laag bij de resultaten pagina de goede/juiste antwoorden aan de hand van kleur onderscheden, zodat het direct te zien is of een antwoord goed of fout was. 
+
 ##### 4 - Pleasurable 
+In de pleasurable laag heb ik allerlei enhancements toegevoegd: zo scrollen de header en het mobiel menu in/uit beeld op basis van het scroll gedrag van de gebruiker. De opties komen in beeld met een animatie, die ook sneller wordt en uiteindelijk stopt als een gebruiker meerdere keren het menu heeft geopened. Daarnaast heb ik view transitions toegepast, zodat o.a. de gekozen funfact met animatie in beeld verschijnt. En ziet de gebruiker een loading state, voordat de antwoorden verstuurd worden. Voor de visuals, zie het begin van de beschrijving. 
 
 ## Kenmerken 
 In dit project maak ik gebruik van Node.js en Express om een webserver op te zetten. Ik gebruik Liquid als template-engine voor het genereren van dynamische HTML-pagina's. Data wordt opgehaald via verschillende API-endpoints, zowel Directus als LearningStone API. 
