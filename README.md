@@ -26,7 +26,6 @@ Bij het aanmaken van een profiel, wordt de gebruiker gevraagd om een funfact ove
 - [Beschrijving](#beschrijving)
 - [Kenmerken](#kenmerken)
 - [Installatie](#installatie)
-- [Bronnen](#bronnen)
 - [Licentie](#licentie)
 
 ## Beschrijving
@@ -157,8 +156,6 @@ Ga in je browser naar `http://localhost:8000` om het project te bekijken.
 Om het werken makkelijker te maken is ook `nodemon` in dit project geïnstalleerd. Hiermee wordt de server automatisch opnieuw opgestart bij wijzigingen en hoeft dit niet meer handmatig gedaan te worden met `npm start`. 
 
 Om met `nodemon` te werken, type `npm run dev` in de terminal.
-
-## Bronnen 
 
 ## Licentie 
 This project is licensed under the terms of the [MIT license](./LICENSE).
