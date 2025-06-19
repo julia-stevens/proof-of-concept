@@ -115,13 +115,13 @@ In de pleasurable laag heb ik allerlei enhancements toegevoegd: zo scrollen de h
 In dit project maak ik gebruik van Node.js en Express om een webserver op te zetten. Ik gebruik Liquid als template-engine voor het genereren van dynamische HTML-pagina's. Data wordt opgehaald via verschillende API-endpoints, zowel Directus als LearningStone API. 
 
 ### Routes en dataverwerking
-- [`app.get("/")`](#): render de homepage via `index.liquid`.
-- [`app.get("/profile")`](#): toont de profielpagina in `profile.liquid`.
-- [`app.get("/game/start")`](#): toont het startscherm van het spel. Gerenderd met `game-start.liquid`.
-- [`app.get("/game/play")`](#): haalt leden en hun bijbehorende funfacts op via LearningStone en Directus. Deze gegevens worden weergegeven in `game.liquid`, waar gebruikers funfacts aan groepsleden koppelen.
-- [`app.post("/game/play")`](#): verwerkt de ingestuurde antwoorden van de gebruiker. Deze worden opgeslagen in de Directus database. Na opslaan wordt doorgestuurd naar de resultatenpagina.
-- [`app.get("/game/results")`](#): haalt data op van de meest recente spelronde, vergelijkt antwoorden met juiste funfacts en toont resultaten in `game-results.liquid`.
-- [`app.get("/notice-board")`](#): toont een overzicht van de laatst gespeelde ronde en antwoorden op het prikbord via `notice-board.liquid`.
+- [`app.get("/")`](https://github.com/julia-stevens/proof-of-concept/blob/e322176c7a8124d0654a1186b7c5cb0f55351173/server.js#L27-L30): render de homepage via `index.liquid`.
+- [`app.get("/profile")`](https://github.com/julia-stevens/proof-of-concept/blob/e322176c7a8124d0654a1186b7c5cb0f55351173/server.js#L32-L35): toont de profielpagina in `profile.liquid`.
+- [`app.get("/game/start")`](https://github.com/julia-stevens/proof-of-concept/blob/e322176c7a8124d0654a1186b7c5cb0f55351173/server.js#L37-L40): toont het startscherm van het spel. Gerenderd met `game-start.liquid`.
+- [`app.get("/game/play")`](https://github.com/julia-stevens/proof-of-concept/blob/e322176c7a8124d0654a1186b7c5cb0f55351173/server.js#L42-L54): haalt leden en hun bijbehorende funfacts op via LearningStone en Directus. Deze gegevens worden weergegeven in `game.liquid`, waar gebruikers funfacts aan groepsleden koppelen.
+- [`app.post("/game/play")`](https://github.com/julia-stevens/proof-of-concept/blob/e322176c7a8124d0654a1186b7c5cb0f55351173/server.js#L56-L62): verwerkt de ingestuurde antwoorden van de gebruiker. Deze worden opgeslagen in de Directus database. Na opslaan wordt doorgestuurd naar de resultatenpagina.
+- [`app.get("/game/results")`](https://github.com/julia-stevens/proof-of-concept/blob/e322176c7a8124d0654a1186b7c5cb0f55351173/server.js#L64-L70): haalt data op van de meest recente spelronde, vergelijkt antwoorden met juiste funfacts en toont resultaten in `game-results.liquid`.
+- [`app.get("/notice-board")`](https://github.com/julia-stevens/proof-of-concept/blob/e322176c7a8124d0654a1186b7c5cb0f55351173/server.js#L72-L78): toont een overzicht van de laatst gespeelde ronde en antwoorden op het prikbord via `notice-board.liquid`.
 
 ### Data ophalen en HTML renderen 
 De gegevens worden opgehaald via `fetch()` naar onder andere:
@@ -130,9 +130,9 @@ De gegevens worden opgehaald via `fetch()` naar onder andere:
 - LearningStone API's voor groepsleden en resources
 
 ### Voorbeelden:
-- De route [`/game/play`](#) gebruikt `fetchMembers()` en `fetchFacts()` om data op te halen.
-- De antwoorden worden verwerkt via `submitAnswers()` en opgeslagen in Directus.
-- Resultaten worden berekend met `calculateGameResults()` en weergegeven in verschillende views (results en prikbord).
+- De route [`/game/play`](https://github.com/julia-stevens/proof-of-concept/blob/e322176c7a8124d0654a1186b7c5cb0f55351173/server.js#L42-L54) gebruikt [`fetchMembers()`](https://github.com/julia-stevens/proof-of-concept/blob/e322176c7a8124d0654a1186b7c5cb0f55351173/server.js#L180-L202) en [`fetchFacts()`](https://github.com/julia-stevens/proof-of-concept/blob/e322176c7a8124d0654a1186b7c5cb0f55351173/server.js#L204-L219) om data op te halen.
+- De antwoorden worden verwerkt via [`submitAnswers()`](https://github.com/julia-stevens/proof-of-concept/blob/e322176c7a8124d0654a1186b7c5cb0f55351173/server.js#L384-L434) en opgeslagen in Directus.
+- Resultaten worden berekend met [`calculateGameResults()`](https://github.com/julia-stevens/proof-of-concept/blob/e322176c7a8124d0654a1186b7c5cb0f55351173/server.js#L291-L350) en weergegeven in verschillende views (results en prikbord).
 
 ### Uitleg _NodeJS, Express en Liquid_
 #### NodeJS
