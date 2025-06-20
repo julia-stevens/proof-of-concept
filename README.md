@@ -154,7 +154,7 @@ Liquid is een template-engine waarmee je dynamische HTML-pagina's kunt genereren
 * CSS gestructureerd op volgorde van HTML. Dus: start met `header`, daarna `nav`, etc. 
 * Alle genesten elementen in HTML, zijn ook in CSS genest (onder de betreffende `section` `div` of `header` `nav` `footer`, etc.) en in volgorde van HTML
 
-#### Nesten van media queries
+### Nesten van media queries
 * Alle media queries zijn genest in de betreffende CSS selectoren
 * De media queries staan onderaan in de styling van de betreffende selector. 
 
