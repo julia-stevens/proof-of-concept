@@ -25,6 +25,7 @@ Bij het aanmaken van een profiel, wordt de gebruiker gevraagd om een funfact ove
 ## Inhoudsopgave
 - [Beschrijving](#beschrijving)
 - [Kenmerken](#kenmerken)
+- [Code conventies](#code-conventies)
 - [Installatie](#installatie)
 - [Licentie](#licentie)
 
@@ -142,6 +143,29 @@ Express is een hulpmiddel binnen NodeJS, waarmee een webserver gebouwd kan worde
 
 #### Liquid
 Liquid is een template-engine waarmee je dynamische HTML-pagina's kunt genereren.
+
+## Code conventies
+### Ademruimte en inspringen in HTML
+* Inspringen altijd met een tab
+* Inline elementen op dezelfde regel
+* Block elementen op aparte regels
+
+### Volgorde en nesten van CSS selectors
+* CSS gestructureerd op volgorde van HTML. Dus: start met `header`, daarna `nav`, etc. 
+* Alle genesten elementen in HTML, zijn ook in CSS genest (onder de betreffende `section` `div` of `header` `nav` `footer`, etc.) en in volgorde van HTML
+
+#### Nesten van media queries
+* Alle media queries zijn genest in de betreffende CSS selectoren
+* De media queries staan onderaan in de styling van de betreffende selector. 
+
+### Naamgeving
+* Kebab-casing in HTML en CSS
+* CamelCase in JS met een beschrijvende naam voor de variabelen. 
+* Naamgeving classes beschrijven (informatie) inhoud van betreffende sectie
+
+### Server
+* Zo veel mogelijk herhalende code in functies 
+* eerste routes, daarna functie definiëren
 
 ## Installatie 
 Zoals beschreven bij Kenmerken is bij dit project gebruik gemaakt van NodeJS. Om aan dit project te werken moet NodeJS geïnstalleerd zijn. Eenmal geïnstalleerd kan het project geopend worden in de code editor.
